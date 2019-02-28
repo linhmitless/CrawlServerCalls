@@ -30,8 +30,6 @@ namespace Crawl.Controllers
         public static string DefaultImageURI = "Item.png";
 
         #region ServerCalls
-
-        // This function allows us to get items using Server API calls 
         public async Task<List<Item>> GetItemsFromServer(int parameter = 100)
         {
             // parameter is the item group to request.  1, 2, 3, 100
@@ -45,7 +43,7 @@ namespace Crawl.Controllers
 
             // Needs to get items from the server
 
-            var URLComponent = "XYZ/";
+            var URLComponent = "GetItemList";
 
             var DataResult = await HttpClientService.Instance.GetJsonGetAsync(WebGlobals.WebSiteAPIURL + URLComponent + parameter);
 
@@ -60,17 +58,20 @@ namespace Crawl.Controllers
             // Then update the database
 
             // Use a foreach on myList
-
-            // Implement
+            foreach (var item in myList)
+            {
+                // Call to the View Model (that is where the datasource is set, and have it then save
+                await ItemsViewModel.Instance.InsertUpdateAsync(item);
+            }
 
             // When foreach is done, call to the items view model to set needs refresh to true, so it can refetch the list...
-            // Implement
+            ItemsViewModel.Instance.SetNeedsRefresh(true);
 
             return myList;
         }
 
         // Asks the server for items based on paramaters
-        // Number is the number of items to return
+        // Number is th enumber of items to return
         // Level is the Value max for the items
         // Random is to have the value random between 1 and the Level
         // Attribute is a filter to return only items for that attribute, else unknown is used for any
@@ -86,14 +87,15 @@ namespace Crawl.Controllers
 
             // Needs to get items from the server
 
-            var URLComponent = "GetItemListPost/";
-
+            var URLComponent = "GetItemListPost";
 
             var dict = new Dictionary<string, string>
             {
                 { "Number", number.ToString()},
+                { "Level", level.ToString()},
                 { "Attribute", ((int)attribute).ToString()},
-                // Implement missing paramaters...
+                { "Location", ((int)location).ToString()},
+                { "Random", random.ToString()}
 
             };
 
@@ -112,23 +114,22 @@ namespace Crawl.Controllers
             }
 
             // Then update the database
+
             // Use a foreach on myList
             if (updateDataBase)
             {
                 foreach (var item in myList)
                 {
                     // Call to the View Model (that is where the datasource is set, and have it then save
-                    // await abcdefg;
-                    // Implement
+                    await ItemsViewModel.Instance.InsertUpdateAsync(item);
                 }
 
                 // When foreach is done, call to the items view model to set needs refresh to true, so it can refetch the list...
-                // Implement
+                ItemsViewModel.Instance.SetNeedsRefresh(true);
             }
 
             return myList;
         }
-
 
         // The returned data will be a list of items.  Need to pull that list out
         private List<Item> ParseJson(string myJsonData)
@@ -182,7 +183,6 @@ namespace Crawl.Controllers
 
                 myData.Location = (ItemLocationEnum)JsonHelper.GetJsonInteger(json, "Location");
                 myData.Attribute = (AttributeEnum)JsonHelper.GetJsonInteger(json, "Attribute");
-.
 
             }
 
