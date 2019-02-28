@@ -177,6 +177,8 @@ namespace Crawl.Controllers
                 myData.ImageURI = JsonHelper.GetJsonString(json, "ImageURI");
 
                 myData.Value = JsonHelper.GetJsonInteger(json, "Value");
+                myData.Range = JsonHelper.GetJsonInteger(json, "Range");
+                myData.Damage = JsonHelper.GetJsonInteger(json, "Damage");
 
                 myData.Location = (ItemLocationEnum)JsonHelper.GetJsonInteger(json, "Location");
                 myData.Attribute = (AttributeEnum)JsonHelper.GetJsonInteger(json, "Attribute");
