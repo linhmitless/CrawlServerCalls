@@ -65,7 +65,7 @@ namespace Crawl.Services
             ItemsViewModel.Instance.SetNeedsRefresh(true);
             MonstersViewModel.Instance.SetNeedsRefresh(true);
             CharactersViewModel.Instance.SetNeedsRefresh(true);
-            //ScoresViewModel.Instance.SetNeedsRefresh(true);
+            ScoresViewModel.Instance.SetNeedsRefresh(true);
         }
 
         private async void InitilizeSeedData()
@@ -107,21 +107,7 @@ namespace Crawl.Services
         #region Item
         // Item
 
-        // Add InsertUpdateAsync_Item Method
-
-        // Check to see if the item exists
-        // Add your code here.
-
-        // If it does not exist, then Insert it into the DB
-        // Add your code here.
-        // return true;
-
-        // If it does exist, Update it into the DB
-        // Add your code here
-        // return true;
-
-        // If you got to here then return false;
-
+            // Insert update for item
         public async Task<bool> InsertUpdateAsync_Item(Item data)
         {
             // Check to see if the item exist
@@ -143,6 +129,7 @@ namespace Crawl.Services
             return false;
         }
 
+        // Add item to DB
         public async Task<bool> AddAsync_Item(Item data)
         {
             var result = await App.Database.InsertAsync(data);
@@ -175,13 +162,21 @@ namespace Crawl.Services
             return false;
         }
 
+        // Get Item
+        // Do not allow getting an item that doesn't exist
         public async Task<Item> GetAsync_Item(string id)
         {
-            var tempResult = await App.Database.GetAsync<Item>(id);
 
-            var result = tempResult;
+            try
+            {
+                var result = await App.Database.GetAsync<Item>(id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 
-            return result;
         }
 
         public async Task<IEnumerable<Item>> GetAllAsync_Item(bool forceRefresh = false)
@@ -311,6 +306,7 @@ namespace Crawl.Services
             return false;
         }
 
+        // Insert update monster
         public async Task<bool> InsertUpdateAsync_Monster(Monster data)
         {
 
@@ -392,6 +388,7 @@ namespace Crawl.Services
 
         #region Score
         // Score
+        // Add a new score to the DB
         public async Task<bool> AddAsync_Score(Score data)
         {
             var result = await App.Database.InsertAsync(data);
@@ -402,7 +399,7 @@ namespace Crawl.Services
 
             return false;
         }
-
+        // update score to new values
         public async Task<bool> UpdateAsync_Score(Score data)
         {
             var result = await App.Database.UpdateAsync(data);
@@ -414,6 +411,8 @@ namespace Crawl.Services
             return false;
         }
 
+        // Delete a score from DB
+        // If score doesn't exist yet, return false
         public async Task<bool> DeleteAsync_Score(Score data)
         {
             var result = await App.Database.DeleteAsync(data);
@@ -434,6 +433,7 @@ namespace Crawl.Services
             return result;
         }
 
+        // Get all score currently available
         public async Task<IEnumerable<Score>> GetAllAsync_Score(bool forceRefresh = false)
         {
             var tempResult = await App.Database.Table<Score>().ToListAsync();
@@ -447,6 +447,7 @@ namespace Crawl.Services
             return result;
         }
 
+        // Insert update scores
         public async Task<bool> InsertUpdateAsync_Score(Score data)
         {
 
