@@ -153,9 +153,8 @@ namespace Crawl.Views
         }
 
 
-        // Add code for GetItems_Command
-        // add your code here
-
+        
+        // Add item using GET command
         private async void GetItems_Command(object sender, EventArgs e)
         {
             var myOutput = "No Results";
@@ -202,7 +201,7 @@ namespace Crawl.Views
 
             // will return shoes value 10 of speed.
             // Example  result = await ItemsController.Instance.GetItemsFromGame(1, 10, AttributeEnum.Speed, ItemLocationEnum.Feet, false, true);
-            myDataList = await ItemsController.Instance.GetItemsFromGame(number, level, attribute, location, random, updateDataBase);
+            var result = await ItemsController.Instance.GetItemsFromGame(number, level, attribute, location, random, updateDataBase);
 
             if (myDataList != null && myDataList.Count > 0)
             {
