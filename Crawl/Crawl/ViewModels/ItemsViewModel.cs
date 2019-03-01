@@ -12,6 +12,7 @@ using Crawl.GameEngine;
 
 namespace Crawl.ViewModels
 {
+    // VM for Item class
     public class ItemsViewModel : BaseViewModel
     {
         #region Singleton

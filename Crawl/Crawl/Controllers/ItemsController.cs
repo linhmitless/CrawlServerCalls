@@ -87,7 +87,7 @@ namespace Crawl.Controllers
 
             // Needs to get items from the server
 
-            var URLComponent = "GetItemListPost/";
+            var URLComponent = "GetItemListPost";
 
             var dict = new Dictionary<string, string>
             {
@@ -121,6 +121,7 @@ namespace Crawl.Controllers
                 foreach (var item in myList)
                 {
                     // Call to the View Model (that is where the datasource is set, and have it then save
+                    
                     await SQLDataStore.Instance.InsertUpdateAsync_Item(item);
                 }
 
@@ -164,6 +165,7 @@ namespace Crawl.Controllers
 
         }
 
+        // Helper function to convert Json into myData object
         private Item ConvertFromJson(JObject json)
         {
             var myData = new Item();

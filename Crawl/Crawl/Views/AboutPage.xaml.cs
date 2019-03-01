@@ -204,7 +204,7 @@ namespace Crawl.Views
 
             // will return shoes value 10 of speed.
             // Example  result = await ItemsController.Instance.GetItemsFromGame(1, 10, AttributeEnum.Speed, ItemLocationEnum.Feet, false, true);
-            var result = await ItemsController.Instance.GetItemsFromGame(number, level, attribute, location, random, updateDataBase);
+            myDataList = await ItemsController.Instance.GetItemsFromGame(number, level, attribute, location, random, updateDataBase);
 
             if (myDataList != null && myDataList.Count > 0)
             {
