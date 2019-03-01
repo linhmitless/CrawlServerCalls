@@ -61,7 +61,7 @@ namespace Crawl.Views
             var myOutputCharacter = myTestCharacter.FormatOutput();
             var myOutputMonster = myTestMonster.FormatOutput();
         }
-
+        // Choose to use Mock or SQL DataStore
         private void SetDataSource(bool isMock)
         {
             var set = DataStoreEnum.SQL;
@@ -74,6 +74,7 @@ namespace Crawl.Views
             MasterDataStore.ToggleDataStore(set);
         }
 
+        // Handles when debug settings button is toggled
         private void EnableDebugSettings_OnToggled(object sender, ToggledEventArgs e)
         {
             // This will change out the DataStore to be the Mock Store if toggled on, or the SQL if off.
@@ -81,11 +82,13 @@ namespace Crawl.Views
             DebugSettingsFrame.IsVisible = (e.Value);
         }
 
+        // Handles when database settings button is toggled
         private void DatabaseSettingsSwitch_OnToggled(object sender, ToggledEventArgs e)
         {
             DatabaseSettingsFrame.IsVisible = (e.Value);
         }
 
+        // Handles when MockData button is toggled
         private void UseMockDataSourceSwitch_OnToggled(object sender, ToggledEventArgs e)
         {
             // This will change out the DataStore to be the Mock Store if toggled on, or the SQL if off.
@@ -186,7 +189,7 @@ namespace Crawl.Views
                 await DisplayAlert("Returned List", myOutput, "OK");
             }
         }
-
+        // This function handles POST call to server
         private async void GetItemsPost_Command(object sender, EventArgs e)
         {
             var myOutput = "No Results";

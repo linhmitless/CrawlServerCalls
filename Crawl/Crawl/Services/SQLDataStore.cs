@@ -139,7 +139,7 @@ namespace Crawl.Services
             }
             return false;
         }
-
+        // update item 
         public async Task<bool> UpdateAsync_Item(Item data)
         {
             var result = await App.Database.UpdateAsync(data);
@@ -178,7 +178,7 @@ namespace Crawl.Services
             }
 
         }
-
+        // get list of all items
         public async Task<IEnumerable<Item>> GetAllAsync_Item(bool forceRefresh = false)
         {
             var tempResult = await App.Database.Table<Item>().ToListAsync();
